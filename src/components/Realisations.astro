@@ -1,0 +1,116 @@
+---
+const projects = [
+  {
+    img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop',
+    label: 'Villa contemporaine',
+    type: 'Construction neuve',
+    lieu: 'Écully · 2024',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=1600&auto=format&fit=crop',
+    label: 'Maison d\'architecte',
+    type: 'Construction neuve',
+    lieu: 'Tassin · 2024',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?q=80&w=1600&auto=format&fit=crop',
+    label: 'Réhabilitation de façade',
+    type: 'Rénovation',
+    lieu: 'Villeurbanne · 2023',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop',
+    label: 'Piscine & terrasse pierre',
+    type: 'Extérieur',
+    lieu: 'Caluire · 2023',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1600&auto=format&fit=crop',
+    label: 'Extension maison de ville',
+    type: 'Gros œuvre',
+    lieu: 'Lyon 3e · 2023',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop',
+    label: 'Mur de soutènement',
+    type: 'Clôture & murets',
+    lieu: 'Sainte-Foy · 2022',
+  },
+];
+---
+
+<section class="real section" id="realisations">
+  <div class="container">
+    <div class="real__head reveal">
+      <div class="sec-head">
+        <span class="eyebrow">Nos réalisations</span>
+        <h2>Ce que nos mains ont bâti.</h2>
+      </div>
+      <p class="real__sub">Chaque chantier est une référence. Voici quelques-unes des constructions dont nous sommes fiers.</p>
+    </div>
+
+    <div class="real__grid">
+      {projects.map((p, i) => (
+        <article
+          class={`rcard reveal reveal--scale${i === 0 ? ' rcard--wide' : ''}`}
+          data-lb-img={p.img}
+          data-lb-label={p.label}
+          data-lb-type={p.type}
+          data-lb-lieu={p.lieu}
+          data-lb-index={i}
+          role="button"
+          tabindex="0"
+          aria-label={`Voir ${p.label} en grand`}
+        >
+          <div class="rcard__img" style={`background-image:url('${p.img}')`}></div>
+          <div class="rcard__overlay"></div>
+          <div class="rcard__body">
+            <span class="rcard__type">{p.type}</span>
+            <h3 class="rcard__title">{p.label}</h3>
+            <span class="rcard__lieu">{p.lieu}</span>
+          </div>
+          <div class="rcard__zoom" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="real__cta reveal">
+      <button class="btn btn--ghost real__more" id="real-more-btn">
+        Voir plus de réalisations <span class="arr">↓</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lb" id="lightbox" aria-modal="true" role="dialog" aria-hidden="true">
+  <div class="lb__backdrop" id="lb-backdrop"></div>
+  <button class="lb__close" id="lb-close" aria-label="Fermer">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M18 6L6 18M6 6l12 12"/>
+    </svg>
+  </button>
+  <button class="lb__nav lb__nav--prev" id="lb-prev" aria-label="Image précédente">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+  </button>
+  <button class="lb__nav lb__nav--next" id="lb-next" aria-label="Image suivante">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M9 18l6-6-6-6"/>
+    </svg>
+  </button>
+  <div class="lb__frame">
+    <div class="lb__img" id="lb-img"></div>
+    <div class="lb__info">
+      <span class="lb__type" id="lb-type"></span>
+      <span class="lb__label" id="lb-label"></span>
+      <span class="lb__lieu" id="lb-lieu"></span>
+    </div>
+    <div class="lb__counter" id="lb-counter"></div>
+  </div>
+</div>

@@ -1,0 +1,287 @@
+---
+---
+
+<header class="header" id="main-header">
+  <div class="header__inner container">
+    <a class="logo" href="#accueil" aria-label="Maçon Modern — accueil">
+      <span class="logo__mark"><span>M<b>M</b></span></span>
+      <span class="logo__txt">
+        <span class="nm">Maçon Modern</span>
+        <span class="tg">Maçonnerie · Gros œuvre</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Navigation principale">
+      <div class="nav__links">
+        <a href="#apropos">À propos</a>
+        <a href="#prestations">Prestations</a>
+        <a href="#methode">Services</a>
+        <a href="#avis">Avis</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a href="#contact" class="btn btn--accent btn--header">Devis gratuit</a>
+    </nav>
+
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mmenu" id="mmenu" aria-hidden="true">
+  <div class="mmenu__top">
+    <a class="logo" href="#accueil">
+      <span class="logo__mark"><span>M<b>M</b></span></span>
+      <span class="logo__txt"><span class="nm">Maçon Modern</span></span>
+    </a>
+    <button class="mmenu__close" id="mmenu-close" aria-label="Fermer">✕</button>
+  </div>
+  <nav class="mmenu__links">
+    <a href="#apropos">À propos</a>
+    <a href="#prestations">Prestations</a>
+    <a href="#methode">Services</a>
+    <a href="#avis">Avis clients</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="mmenu__foot">
+    <a href="tel:+33123456789">01 23 45 67 89</a>
+    <a href="mailto:contact@maconmodern.fr">contact@maconmodern.fr</a>
+  </div>
+</div>
+
+<style>
+  /* ===== HEADER ===== */
+  .header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    height: 84px;
+    transition: background .4s ease, box-shadow .4s ease, height .3s ease;
+  }
+  .header__inner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .header.is-solid {
+    background: rgba(250,250,248,.88);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 1px 0 var(--line);
+    height: 72px;
+  }
+
+  /* Logo */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    color: #fff;
+    transition: color .4s;
+    flex-shrink: 0;
+  }
+  .header.is-solid .logo { color: var(--ink); }
+
+  .logo__mark {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 auto;
+    border-radius: 11px;
+    background: var(--ink);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .logo__mark span {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.22rem;
+    letter-spacing: -.07em;
+    color: #fff;
+    line-height: 1;
+    transform: translateY(-1px);
+  }
+  .logo__mark span b { color: var(--accent); font-weight: inherit; }
+
+  .logo__txt {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.04;
+  }
+  .logo__txt .nm {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.06rem;
+    letter-spacing: -.01em;
+  }
+  .logo__txt .tg {
+    font-size: .6rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    opacity: .58;
+    font-weight: 500;
+  }
+
+  /* Nav links */
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+  }
+  .nav__links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+  .nav__links a {
+    position: relative;
+    font-size: .9rem;
+    font-weight: 500;
+    color: rgba(255,255,255,.88);
+    transition: opacity .25s, color .4s;
+    padding: 6px 0;
+  }
+  .header.is-solid .nav__links a { color: var(--ink-2); }
+  .nav__links a::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0;
+    height: 1.5px; width: 0;
+    background: var(--accent);
+    transition: width .28s;
+  }
+  .nav__links a:hover { opacity: 1; }
+  .nav__links a:hover::after { width: 100%; }
+
+  .btn--header { font-size: .85rem; --bh: 44px; padding: 0 20px; }
+
+  /* Burger */
+  .burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+  }
+  .burger span {
+    display: block;
+    width: 22px; height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform .25s, opacity .25s;
+  }
+  .header.is-solid .burger span { background: var(--ink); }
+  .burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile menu */
+  .mmenu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 59;
+    background: var(--bg);
+    padding: 0 var(--pad-x) 40px;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(-12px);
+    transition: opacity .25s, transform .25s;
+    pointer-events: none;
+  }
+  .mmenu.open {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .mmenu__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 84px;
+  }
+  .mmenu .logo { color: var(--ink); }
+  .mmenu__close {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    color: var(--ink);
+    padding: 8px;
+    border-radius: 8px;
+  }
+  .mmenu__links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 24px;
+    flex: 1;
+  }
+  .mmenu__links a {
+    font-size: 1.6rem;
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    transition: color .2s;
+  }
+  .mmenu__links a:hover { color: var(--accent); }
+  .mmenu__foot {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 32px;
+  }
+  .mmenu__foot a {
+    font-size: .85rem;
+    color: var(--muted);
+    transition: color .2s;
+  }
+  .mmenu__foot a:hover { color: var(--ink); }
+
+  @media (max-width: 900px) {
+    .nav { display: none; }
+    .burger { display: flex; }
+    .mmenu { display: flex; }
+  }
+</style>
+
+<script>
+  // Nav scroll effect
+  const header = document.getElementById('main-header')!;
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('is-solid', window.scrollY > 40);
+  }, { passive: true });
+
+  // Burger
+  const burger    = document.getElementById('burger')!;
+  const mmenu     = document.getElementById('mmenu')!;
+  const mmClose   = document.getElementById('mmenu-close')!;
+
+  function openMenu() {
+    burger.setAttribute('aria-expanded', 'true');
+    mmenu.setAttribute('aria-hidden', 'false');
+    mmenu.classList.add('open');
+  }
+  function closeMenu() {
+    burger.setAttribute('aria-expanded', 'false');
+    mmenu.setAttribute('aria-hidden', 'true');
+    mmenu.classList.remove('open');
+  }
+
+  burger.addEventListener('click', () => {
+    burger.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu();
+  });
+  mmClose.addEventListener('click', closeMenu);
+  mmenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+</script>

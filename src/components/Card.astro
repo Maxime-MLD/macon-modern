@@ -1,0 +1,219 @@
+---
+interface Props {
+  title:       string;
+  description: string;
+  image?:      string;
+  imageAfter?:  string;
+  imageAlt?:   string;
+  icon?:       string;
+  link?:       string;
+  type?:       'default' | 'renovation';
+}
+
+const {
+  title,
+  description,
+  image,
+  imageAfter,
+  imageAlt = title,
+  icon,
+  link = '#contact',
+  type = 'default',
+} = Astro.props;
+---
+
+<article class={`card ${type === 'renovation' ? 'card--renovation' : ''}`}>
+  {/* Image area */}
+  <div class="card-image">
+    {type === 'renovation' && imageAfter ? (
+      <>
+        <div class="reno-before">
+          <img src={image}      alt={`${imageAlt} - avant`}  loading="lazy"/>
+          <span class="reno-label reno-label--before">Avant</span>
+        </div>
+        <div class="reno-after">
+          <img src={imageAfter} alt={`${imageAlt} - apres`} loading="lazy"/>
+          <span class="reno-label reno-label--after">Apres</span>
+        </div>
+        <div class="reno-divider" aria-hidden="true">
+          <div class="reno-divider-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+              <path d="M8 5l-7 7 7 7M16 5l7 7-7 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </>
+    ) : (
+      <img src={image} alt={imageAlt} loading="lazy" class="card-img"/>
+    )}
+    <div class="card-overlay" aria-hidden="true"></div>
+  </div>
+
+  {/* Content */}
+  <div class="card-body">
+    {icon && (
+      <div class="card-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d={icon}/>
+        </svg>
+      </div>
+    )}
+    <h3 class="card-title">{title}</h3>
+    <p class="card-desc">{description}</p>
+    <a href={link} class="card-link">
+      En savoir plus
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+</article>
+
+<style>
+  .card {
+    background: var(--c-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.14);
+  }
+  .card:active { transform: translateY(-2px) scale(0.99); }
+
+  /* Image */
+  .card-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: var(--c-stone);
+  }
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .card:hover .card-img {
+    transform: scale(1.05);
+  }
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.25), transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Renovation split */
+  .card--renovation .card-image {
+    display: flex;
+    position: relative;
+  }
+  .reno-before,
+  .reno-after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    overflow: hidden;
+  }
+  .reno-before { left: 0; }
+  .reno-after  { right: 0; }
+  .reno-before img,
+  .reno-after  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .reno-label {
+    position: absolute;
+    bottom: 10px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    color: white;
+  }
+  .reno-label--before {
+    left: 10px;
+    background: rgba(0,0,0,0.5);
+  }
+  .reno-label--after {
+    right: 10px;
+    background: rgba(201,120,58,0.85);
+  }
+  .reno-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    background: white;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .reno-divider-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .reno-divider-icon svg { color: var(--c-dark); }
+
+  /* Body */
+  .card-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+  .card-icon {
+    color: var(--c-accent);
+    margin-bottom: 4px;
+  }
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--c-dark);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .card-desc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--c-muted);
+    flex: 1;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--c-accent);
+    transition: gap 0.2s, color 0.2s;
+  }
+  .card-link:hover {
+    color: var(--c-accent-d);
+    gap: 10px;
+  }
+</style>
