@@ -1,8 +1,11 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 
-import react from '@astrojs/react';
+import react from "@astrojs/react";
 
 export default defineConfig({
-  site: 'https://macon-moderne.fr',
+  devToolbar: {
+    enabled: false,
+  },
+  site: "https://macon-moderne.fr",
   integrations: [react()],
 });
